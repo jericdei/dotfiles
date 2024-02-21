@@ -1,0 +1,92 @@
+alias c="clear"
+alias code="code-insiders"
+alias zshconfig="nano ~/.zshrc"
+alias ohmyzsh="nano ~/.oh-my-zsh"
+
+alias proj="cd ~/projects"
+alias lhoopa="cd ~/projects/lhoopa"
+alias personal="cd ~/projects/personal"
+
+# Project aliases
+alias lhoopa="cd ~/projects/lhoopa"
+alias ts="cd ~/projects/lhoopa/laravel/ticketing-system"
+alias kp="cd ~/projects/lhoopa/laravel/kheops"
+alias sc="cd ~/projects/lhoopa/laravel/sourcing"
+alias ci3="cd ~/projects/lhoopa/codeigniter3"
+alias cs="cd ~/projects/lhoopa/codeigniter3/projects/cornerstone"
+alias crm="cd ~/projects/lhoopa/codeigniter3/projects/crm"
+alias lp="cd ~/projects/lhoopa/codeigniter3/projects/lhoopa-pro"
+alias hr="cd ~/projects/lhoopa/codeigniter3/projects/bliink-hris"
+alias cs74="cd ~/projects/lhoopa/codeigniter3/projects/cornerstone74"
+alias crm74="cd ~/projects/lhoopa/codeigniter3/projects/crm74"
+
+# Lando aliases
+alias lnd="lando"
+alias start="~/scripts/lhoopa-start.sh"
+alias stop="lando poweroff"
+alias restart="lando poweroff && ~/Scripts/lhoopa-start.sh"
+alias lgbuild="lando build && git add . && git commit -m 'build' && git push"
+
+# Shortcut aliases
+alias lezgow="start; kp; lando start; code ."
+alias upgrade="sudo apt update; sudo apt upgrade -y; sudo snap refresh"
+
+# Git aliases
+alias gs="git status"
+alias gac="git add .; git commit -m"
+alias gch="git checkout"
+alias ga="git add ."
+alias gc="git commit -m"
+alias gp="git push"
+alias gpl="git pull"
+
+# Artisan aliases
+alias la="lando artisan"
+alias lat="lando artisan tinker"
+
+# tmux aliases
+alias tm="tmux"
+alias tms="tmux split-window -h"
+
+# Android alises
+alias emu="emulator -avd Android > /dev/null 2>&1 &"
+
+# Dotfiles alias
+alias config="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+
+# Update aliases
+alias update-omz="curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/bin"
+
+# Functions
+gspr() {
+  if [ $# -lt 1 ]
+  then
+    echo "Usage: $funcstack[1] <branch-name>"
+    return
+  fi
+
+  git switch -c $1 origin/production
+}
+
+merge() {
+    git checkout $2;
+    git pull;
+    git merge $1 --commit --no-edit;
+    git push;
+    git push $2;
+    git checkout $1;
+}
+
+update-lando() {
+    cd ~;
+
+    if [ $# -lt 1 ]
+    then
+        echo "Usage: $funcstack[1] <url>"
+        return
+    fi
+
+    wget $1 -O lando-updated.deb;
+    sudo dpkg -i lando-updated.deb;
+    rm lando-updated.deb
+}
